@@ -1,0 +1,72 @@
+{
+  "name": "shiki-transformer-icon-highlight",
+  "type": "module",
+  "version": "0.1.0",
+  "packageManager": "pnpm@10.33.4",
+  "description": "Shiki transformer that highlights icons",
+  "author": "Benjamin Canac <canacb1@gmail.com>",
+  "license": "MIT",
+  "funding": "https://github.com/sponsors/benjamincanac",
+  "homepage": "https://github.com/benjamincanac/shiki-transformer-icon-highlight#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benjamincanac/shiki-transformer-icon-highlight.git"
+  },
+  "bugs": "https://github.com/benjamincanac/shiki-transformer-icon-highlight/issues",
+  "keywords": [
+    "shiki",
+    "shiki-transformer",
+    "icons",
+    "iconify"
+  ],
+  "sideEffects": false,
+  "exports": {
+    ".": "./dist/index.mjs"
+  },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "dev": "unbuild --stub",
+    "lint": "eslint .",
+    "prepublishOnly": "nr build",
+    "release": "bumpp",
+    "start": "tsx src/index.ts",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit",
+    "prepare": "simple-git-hooks",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
+  },
+  "dependencies": {
+    "@shikijs/types": "^4.3.1"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^9.1.0",
+    "@antfu/ni": "^30.2.0",
+    "@types/hast": "^3.0.4",
+    "@types/node": "^26.1.0",
+    "bumpp": "^11.1.0",
+    "eslint": "^10.6.0",
+    "lint-staged": "^17.0.8",
+    "shiki": "^4.3.1",
+    "simple-git-hooks": "^2.13.1",
+    "tsx": "^4.23.0",
+    "typescript": "^6.0.3",
+    "unbuild": "^3.6.1",
+    "vite": "^8.1.3",
+    "vitepress": "^2.0.0-alpha.17",
+    "vitest": "^4.1.9"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
+  }
+}
