@@ -83,7 +83,7 @@ export default defineConfig({
 
 ### Nuxt Content
 
-In Nuxt Content, you can use the transformer by create a `mdc.config.ts` file as follows:
+In Nuxt Content, you can use the transformer by creating a `mdc.config.ts` file as follows:
 
 ```ts [mdc.config.ts]
 import { defineConfig } from '@nuxtjs/mdc/config'
