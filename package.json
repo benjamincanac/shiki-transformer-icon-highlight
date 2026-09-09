@@ -41,7 +41,8 @@
     "prepare": "simple-git-hooks",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs"
+    "docs:preview": "vitepress preview docs",
+    "update-collections": "tsx scripts/update-collections.ts"
   },
   "dependencies": {
     "@shikijs/types": "^4.4.3"

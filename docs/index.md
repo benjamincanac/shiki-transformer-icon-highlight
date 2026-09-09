@@ -10,6 +10,7 @@ A transformer for [Shiki](https://shiki.style) that highlights icon names like `
   <UIcon name="tabler:alarm" />
   <UIcon name="ph:hand-waving" />
   <UIcon name="logos:nuxt-icon" />
+  <UIcon name="i-heroicons-rocket-launch" />
 </template>
 ```
 
@@ -104,11 +105,25 @@ export default defineConfig({
 
 Icon collections to detect, in every format: `i-{collection}-{name}`, `{collection}:{name}` and `i-{collection}:{name}`. The last one settles a collection whose name would otherwise read as part of another, `i-material-symbols:light-mode` rather than `i-material-symbols-light-mode`, which resolves against `material-symbols-light`.
 
-Defaults to `simple-icons`, `vscode-icons`, `tabler`, `lucide`, `logos` and `ph`:
+Defaults to every [Iconify](https://icon-sets.iconify.design/) collection, minus the two letter prefixes that read like ordinary code. Matching `ic`, `mi` or `la` everywhere would turn an `ic:baseline-home` sitting in an unrelated string, or an `i-mi-casa` in a class list, into an icon. `bi`, `ph` and `ri` are the two letter prefixes people actually write, so those stay in.
+
+The list is generated from the [Iconify API](https://iconify.design/docs/api/) and ships with the package, so there is no runtime dependency and no network call while highlighting.
+
+Pass your own list to narrow it down:
 
 ```ts
 transformerIconHighlight({
   collections: ['heroicons', 'lucide'],
+})
+```
+
+Or `allIconCollections` to match the two letter prefixes as well:
+
+```ts
+import { allIconCollections, transformerIconHighlight } from 'shiki-transformer-icon-highlight'
+
+transformerIconHighlight({
+  collections: allIconCollections,
 })
 ```
 

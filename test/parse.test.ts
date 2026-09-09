@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { parseIconName } from '../src'
+import { allIconCollections, parseIconName } from '../src'
 
 describe('parseIconName', () => {
   it('parses i-{collection}-{name} format', () => {
@@ -86,5 +86,78 @@ describe('parseIconName', () => {
       format: 'i',
     })
     expect(parseIconName('i-lucide-rocket', ['heroicons'])).toBeNull()
+  })
+
+  it('matches collections outside the old default', () => {
+    expect(parseIconName('i-heroicons-rocket-launch')).toEqual({
+      collection: 'heroicons',
+      name: 'rocket-launch',
+      format: 'i',
+    })
+    expect(parseIconName('i-pixelarticons-camera')).toEqual({
+      collection: 'pixelarticons',
+      name: 'camera',
+      format: 'i',
+    })
+    expect(parseIconName('iconoir:city')).toEqual({
+      collection: 'iconoir',
+      name: 'city',
+      format: 'colon',
+    })
+    expect(parseIconName('carbon:cloud')).toEqual({
+      collection: 'carbon',
+      name: 'cloud',
+      format: 'colon',
+    })
+  })
+
+  it('keeps the short collections people actually write', () => {
+    expect(parseIconName('i-bi-rocket-takeoff')).toEqual({
+      collection: 'bi',
+      name: 'rocket-takeoff',
+      format: 'i',
+    })
+    expect(parseIconName('ri:home-line')).toEqual({
+      collection: 'ri',
+      name: 'home-line',
+      format: 'colon',
+    })
+  })
+
+  it('leaves the other two letter collections out of the default', () => {
+    expect(parseIconName('ic:baseline-home')).toBeNull()
+    expect(parseIconName('i-ic-baseline-home')).toBeNull()
+    expect(parseIconName('i-mi-casa')).toBeNull()
+    expect(parseIconName('la:code')).toBeNull()
+    // still reachable for anyone who asks for every collection
+    expect(parseIconName('ic:baseline-home', allIconCollections)).toEqual({
+      collection: 'ic',
+      name: 'baseline-home',
+      format: 'colon',
+    })
+  })
+
+  it('matches the longest collection first', () => {
+    expect(parseIconName('i-mdi-light-home')).toEqual({
+      collection: 'mdi-light',
+      name: 'home',
+      format: 'i',
+    })
+    expect(parseIconName('i-mdi-home')).toEqual({
+      collection: 'mdi',
+      name: 'home',
+      format: 'i',
+    })
+    expect(parseIconName('i-material-symbols-light-mode')).toEqual({
+      collection: 'material-symbols-light',
+      name: 'mode',
+      format: 'i',
+    })
+    // the colon form is the way to reach the shorter collection
+    expect(parseIconName('i-material-symbols:light-mode')).toEqual({
+      collection: 'material-symbols',
+      name: 'light-mode',
+      format: 'i',
+    })
   })
 })

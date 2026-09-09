@@ -8,6 +8,8 @@
 
 Shiki transformer that highlights icons like `i-lucide-rocket`, `lucide:rocket` or `i-lucide:rocket`, inspired by [shiki-transformer-color-highlight](https://github.com/antfu/shiki-transformer-color-highlight).
 
+Every [Iconify](https://icon-sets.iconify.design/) collection is recognised out of the box, so `i-heroicons-rocket-launch` or `carbon:cloud` light up without any configuration.
+
 Please check the docs: https://shiki-transformer-icon-highlight.vercel.app/
 
 ## Install

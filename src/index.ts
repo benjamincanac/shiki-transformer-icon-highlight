@@ -1,10 +1,13 @@
 import type { ShikiTransformer } from '@shikijs/types'
 import type { ElementContent } from 'hast'
+import { allIconCollections } from './collections'
+
+export { allIconCollections }
 
 export interface TransformerIconHighlightOptions {
   /**
-   * Icon collections to detect, matched in `i-{collection}-{name}`
-   * and `{collection}:{name}` formats
+   * Icon collections to detect, matched in `i-{collection}-{name}`,
+   * `{collection}:{name}` and `i-{collection}:{name}` formats
    *
    * @default defaultIconCollections
    */
@@ -27,14 +30,19 @@ export interface TransformerIconHighlightOptions {
   htmlIcon?: (icon: string) => string
 }
 
-export const defaultIconCollections: string[] = [
-  'simple-icons',
-  'vscode-icons',
-  'tabler',
-  'lucide',
-  'logos',
-  'ph',
-]
+// Two letter prefixes read like ordinary code tokens, so matching all of them
+// would turn `ic:something` in a string or `i-mi-casa` in a class list into an
+// icon. These three are the ones people actually write, the rest stay opt-in
+// through `allIconCollections`.
+const shortIconCollections = ['bi', 'ph', 'ri']
+
+/**
+ * Every Iconify collection, minus the two letter prefixes that collide with
+ * ordinary code. Pass `allIconCollections` to match those too.
+ */
+export const defaultIconCollections: string[] = allIconCollections.filter(
+  collection => collection.length > 2 || shortIconCollections.includes(collection),
+)
 
 const iconNameRegex = /^[a-z0-9]+(?:-[a-z0-9]+)*$/i
 
@@ -42,6 +50,28 @@ export interface ParsedIconName {
   collection: string
   name: string
   format: 'i' | 'colon'
+}
+
+interface CollectionIndex {
+  lookup: Set<string>
+  // Longest first so `i-simple-icons-github` doesn't split on a shorter prefix
+  sorted: string[]
+}
+
+// `parseIconName` runs on every token, and the default list is ~230 entries
+// long, so the lookups are built once per collections array
+const collectionIndexes = new WeakMap<string[], CollectionIndex>()
+
+function indexCollections(collections: string[]): CollectionIndex {
+  let index = collectionIndexes.get(collections)
+  if (!index) {
+    index = {
+      lookup: new Set(collections),
+      sorted: [...collections].sort((a, b) => b.length - a.length),
+    }
+    collectionIndexes.set(collections, index)
+  }
+  return index
 }
 
 export function parseIconName(
@@ -54,8 +84,8 @@ export function parseIconName(
     cleanText = text.slice(1, -1)
   }
 
-  // Try i-{collection}-{name} format, longest collection first so
-  // `i-simple-icons-github` doesn't match a hypothetical `simple` collection
+  const { lookup, sorted } = indexCollections(collections)
+
   if (cleanText.startsWith('i-')) {
     const rest = cleanText.slice(2)
 
@@ -66,12 +96,12 @@ export function parseIconName(
     if (separator > 0) {
       const collection = rest.slice(0, separator)
       const name = rest.slice(separator + 1)
-      if (collections.includes(collection) && name && iconNameRegex.test(name)) {
+      if (lookup.has(collection) && name && iconNameRegex.test(name)) {
         return { collection, name, format: 'i' }
       }
     }
 
-    const sorted = [...collections].sort((a, b) => b.length - a.length)
+    // `i-{collection}-{name}`
     for (const collection of sorted) {
       if (rest.startsWith(`${collection}-`)) {
         const name = rest.slice(collection.length + 1)
@@ -87,7 +117,7 @@ export function parseIconName(
   if (colonIndex > 0) {
     const collection = cleanText.slice(0, colonIndex)
     const name = cleanText.slice(colonIndex + 1)
-    if (collections.includes(collection) && name && iconNameRegex.test(name)) {
+    if (lookup.has(collection) && name && iconNameRegex.test(name)) {
       return { collection, name, format: 'colon' }
     }
   }
