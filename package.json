@@ -1,7 +1,7 @@
 {
   "name": "shiki-transformer-icon-highlight",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "packageManager": "pnpm@10.33.4",
   "description": "Shiki transformer that highlights icons",
   "author": "Benjamin Canac <canacb1@gmail.com>",
