@@ -58,6 +58,19 @@ export function parseIconName(
   // `i-simple-icons-github` doesn't match a hypothetical `simple` collection
   if (cleanText.startsWith('i-')) {
     const rest = cleanText.slice(2)
+
+    // `i-{collection}:{name}`, the spelling that settles a collection whose
+    // name would otherwise read as part of another one
+    // (`i-material-symbols:light-mode` over `i-material-symbols-light-mode`)
+    const separator = rest.indexOf(':')
+    if (separator > 0) {
+      const collection = rest.slice(0, separator)
+      const name = rest.slice(separator + 1)
+      if (collections.includes(collection) && name && iconNameRegex.test(name)) {
+        return { collection, name, format: 'i' }
+      }
+    }
+
     const sorted = [...collections].sort((a, b) => b.length - a.length)
     for (const collection of sorted) {
       if (rest.startsWith(`${collection}-`)) {

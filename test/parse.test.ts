@@ -20,6 +20,21 @@ describe('parseIconName', () => {
     })
   })
 
+  it('parses i-{collection}:{name} format', () => {
+    expect(parseIconName('i-material-symbols:light-mode-outline-rounded', ['material-symbols'])).toEqual({
+      collection: 'material-symbols',
+      name: 'light-mode-outline-rounded',
+      format: 'i',
+    })
+    expect(parseIconName('\'i-lucide:rocket\'')).toEqual({
+      collection: 'lucide',
+      name: 'rocket',
+      format: 'i',
+    })
+    // an unknown collection stays unmatched, as in the other formats
+    expect(parseIconName('i-unknown:rocket')).toBeNull()
+  })
+
   it('parses {collection}:{name} format', () => {
     expect(parseIconName('lucide:rocket')).toEqual({
       collection: 'lucide',

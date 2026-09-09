@@ -6,7 +6,7 @@
 [![JSDocs][jsdocs-src]][jsdocs-href]
 [![License][license-src]][license-href]
 
-Shiki transformer that highlights icons like `i-lucide-rocket` or `lucide:rocket`, inspired by [shiki-transformer-color-highlight](https://github.com/antfu/shiki-transformer-color-highlight).
+Shiki transformer that highlights icons like `i-lucide-rocket`, `lucide:rocket` or `i-lucide:rocket`, inspired by [shiki-transformer-color-highlight](https://github.com/antfu/shiki-transformer-color-highlight).
 
 Please check the docs: https://shiki-transformer-icon-highlight.vercel.app/
 

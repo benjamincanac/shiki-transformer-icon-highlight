@@ -1,6 +1,6 @@
 # Shiki Transformer Icon Highlight
 
-A transformer for [Shiki](https://shiki.style) that highlights icon names like `i-lucide-rocket` or `lucide:rocket`. For example:
+A transformer for [Shiki](https://shiki.style) that highlights icon names like `i-lucide-rocket`, `lucide:rocket` or `i-lucide:rocket`. For example:
 
 ```vue
 <template>
@@ -102,7 +102,9 @@ export default defineConfig({
 
 ### `collections`
 
-Icon collections to detect. Defaults to `simple-icons`, `vscode-icons`, `tabler`, `lucide`, `logos` and `ph`:
+Icon collections to detect, in every format: `i-{collection}-{name}`, `{collection}:{name}` and `i-{collection}:{name}`. The last one settles a collection whose name would otherwise read as part of another, `i-material-symbols:light-mode` rather than `i-material-symbols-light-mode`, which resolves against `material-symbols-light`.
+
+Defaults to `simple-icons`, `vscode-icons`, `tabler`, `lucide`, `logos` and `ph`:
 
 ```ts
 transformerIconHighlight({
