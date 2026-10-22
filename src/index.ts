@@ -132,7 +132,7 @@ export function transformerIconHighlight(
     collections = defaultIconCollections,
     class: className = 'shiki-icon-highlight',
     // color=black is required for mask-image to work properly (mask uses luminance)
-    iconUrl = icon => `https://api.iconify.design/${icon}.svg?color=%23000`,
+    iconUrl = icon => `https://api.iconify.design/${icon.replace(':', '/')}.svg?color=%23000`,
     htmlIcon,
   } = options
 

@@ -137,7 +137,7 @@ Custom function to resolve the icon URL set in the `--shiki-icon-url` CSS variab
 
 ```ts
 transformerIconHighlight({
-  iconUrl: icon => `https://api.iconify.design/${icon}.svg?color=%23000`,
+  iconUrl: icon => `https://api.iconify.design/${icon.replace(':', '/')}.svg?color=%23000`,
 })
 ```
 
