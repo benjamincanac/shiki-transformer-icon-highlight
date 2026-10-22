@@ -2,7 +2,7 @@
   "name": "shiki-transformer-icon-highlight",
   "type": "module",
   "version": "0.2.0",
-  "packageManager": "pnpm@10.33.4",
+  "packageManager": "pnpm@10.34.7",
   "description": "Shiki transformer that highlights icons",
   "author": "Benjamin Canac <canacb1@gmail.com>",
   "license": "MIT",
@@ -45,24 +45,24 @@
     "update-collections": "tsx scripts/update-collections.ts"
   },
   "dependencies": {
-    "@shikijs/types": "^4.4.3"
+    "@shikijs/types": "^4.5.0"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^9.5.1",
-    "@antfu/ni": "^30.5.0",
+    "@antfu/ni": "^30.6.0",
     "@types/hast": "^3.0.5",
-    "@types/node": "^26.5.0",
+    "@types/node": "^26.6.5",
     "bumpp": "^11.1.0",
-    "eslint": "^10.10.0",
-    "lint-staged": "^17.5.0",
-    "shiki": "^4.4.3",
+    "eslint": "^10.13.0",
+    "lint-staged": "^17.6.0",
+    "shiki": "^4.5.0",
     "simple-git-hooks": "^2.14.0",
-    "tsx": "^4.23.13",
+    "tsx": "^4.23.15",
     "typescript": "^6.0.3",
     "unbuild": "^3.6.1",
-    "vite": "^8.2.2",
+    "vite": "^8.3.5",
     "vitepress": "^2.0.0-alpha.20",
-    "vitest": "^4.1.11"
+    "vitest": "^4.1.12"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"
