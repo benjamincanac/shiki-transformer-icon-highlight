@@ -1,6 +1,17 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended"
+    "config:recommended",
+    "group:allNonMajor",
+    ":maintainLockFilesWeekly",
+    ":semanticCommitTypeAll(chore)"
+  ],
+  "rangeStrategy": "bump",
+  "minimumReleaseAge": "25 hours",
+  "schedule": [
+    "on Monday"
+  ],
+  "postUpdateOptions": [
+    "pnpmDedupe"
   ]
 }
