@@ -2,7 +2,7 @@
   "name": "shiki-transformer-icon-highlight",
   "type": "module",
   "version": "0.2.1",
-  "packageManager": "pnpm@10.34.7",
+  "packageManager": "pnpm@10.34.9",
   "description": "Shiki transformer that highlights icons",
   "author": "Benjamin Canac <canacb1@gmail.com>",
   "license": "MIT",
@@ -51,7 +51,7 @@
     "@antfu/eslint-config": "^9.5.1",
     "@antfu/ni": "^30.6.0",
     "@types/hast": "^3.0.5",
-    "@types/node": "^26.6.5",
+    "@types/node": "^26.6.6",
     "bumpp": "^11.1.0",
     "eslint": "^10.13.0",
     "lint-staged": "^17.6.0",
@@ -61,7 +61,7 @@
     "typescript": "^6.0.3",
     "unbuild": "^3.6.1",
     "vite": "^8.3.5",
-    "vitepress": "^2.0.0-alpha.20",
+    "vitepress": "^2.0.0-alpha.21",
     "vitest": "^4.1.12"
   },
   "simple-git-hooks": {
